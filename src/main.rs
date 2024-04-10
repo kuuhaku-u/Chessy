@@ -1,7 +1,6 @@
+
 static COL_MAP: [char; 8] = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
 static FRN_STRING: &'static str = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
-
-// static FRN_STRING: &'static str = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
 
 #[derive(Debug)]
 enum Color {
@@ -32,6 +31,7 @@ struct Move {
 
 struct GameInfo {
     pieces: Vec<Piece>,
+    position:Vec<u32>,
 }
 
 #[derive(Debug)]
@@ -61,39 +61,45 @@ fn index_to_position(index: usize) -> Result<String, String> {
 }
 
 fn split_word(s: &str) -> Vec<String> {
-    let mut result: Vec<String> = Vec::new();
-
-    for part in s.chars() {
-        result.push(part.to_string());
-    }
-    result
+    s.chars().map(|c| c.to_string()).collect()
 }
 
-fn set_board(board: &[String]) -> Vec<u32> {
+fn set_board(board: &[String]) {
     for part in FRN_STRING.split('/') {
         if part.chars().all(|c| c.is_digit(10)) {
-            println!("DD");
+            println!();
+            for _ in 0..8 {
+                print!("  _  | ");
+            }
+            println!();
         } else {
+            println!();
+
             let a = split_word(part);
-            println!("{:?}", a);
+            println!("| {} |", a.join("  |   "));
         }
     }
-    let a = [1];
-    draw_board();
-    a.to_vec()
+}
+
+
+fn get_current_square(pos:&str){
+
+
+
 
 }
 
-fn draw_board() {
-    for _ in 0..8 {
-        for _ in 0..8 {
-            print!(" _ ");
-        }
-        println!(); 
-    }
+fn eval(crr: &str, next: &str) -> bool {
+    println!("{},{}", crr, next);
+ 
+    get_current_square(&crr);
+
+ 
+    true
 }
 
 fn main() {
+    
     let mut board: Vec<String> = Vec::new();
 
     for i in 0..64 {
@@ -109,13 +115,14 @@ fn main() {
         current_position: "a1".to_string(),
         new_position: "a4".to_string(),
     };
+    let mut cur_position = &my_move.current_position;
+    let mut new_position = &my_move.new_position;
+    
+    eval(&cur_position, &new_position);
 
-    let new_position = &my_move.new_position;
-    println!("{}", new_position);
-
-    if board.contains(new_position) {
-        println!("VALID {:#?}", my_move);
-    } else {
-        println!("NOT VALID {:#?}", my_move);
-    }
+    // if board.contains(new_position) {
+    //     println!("VALID {:#?}", my_move);
+    // } else {
+    //     println!("NOT VALID {:#?}", my_move);
+    // }
 }

@@ -1,3 +1,5 @@
+// use clap::{App, Arg};
+// use std::io::{self, Write};
 
 // type PiecePosition = u64;
 
@@ -213,3 +215,89 @@
 //         true
 //     }
 // }
+
+
+/**
+ * CLAP
+ */
+
+ // let matches = App::new("PositionTracker")
+    //     .version("1.0")
+    //     .author("Your Name")
+    //     .about("Tracks your new position and activity")
+    //     .arg(
+    //         Arg::new("position")
+    //             .short('p')
+    //             .long("position")
+    //             .value_name("POSITION")
+    //             .takes_value(true),
+    //     )
+    //     .arg(
+    //         Arg::new("activity")
+    //             .short('a')
+    //             .long("activity")
+    //             .value_name("ACTIVITY")
+    //             .takes_value(true),
+    //     )
+    //     .get_matches();
+
+    // loop {
+    //     if let Some(position) = matches.value_of("position") {
+    //         println!("Your new position: {}", position);
+    //     } else {
+    //         println!("No new position specified");
+    //     }
+
+    //     if let Some(activity) = matches.value_of("activity") {
+    //         println!("What you're doing: {}", activity);
+    //     } else {
+    //         println!("No activity specified");
+    //     }
+
+    //     std::thread::sleep(std::time::Duration::from_secs(1));
+    // }
+
+    // loop {
+    //     let matches = App::new("PositionTracker")
+    //         .version("1.0")
+    //         .author("Your Name")
+    //         .about("Tracks your new position and activity")
+    //         .arg(
+    //             Arg::new("position")
+    //                 .short('p')
+    //                 .long("position")
+    //                 .value_name("POSITION")
+    //                 .takes_value(true),
+    //         )
+    //         .arg(
+    //             Arg::new("activity")
+    //                 .short('a')
+    //                 .long("activity")
+    //                 .value_name("ACTIVITY")
+    //                 .takes_value(true),
+    //         )
+    //         .get_matches();
+
+    //     if let Some(position) = matches.value_of("position") {
+    //         println!("Your new position: {}", position);
+    //     } else {
+    //         println!("No new position specified");
+    //     }
+
+    //     if let Some(activity) = matches.value_of("activity") {
+    //         println!("What you're doing: {}", activity);
+    //     } else {
+    //         println!("No activity specified");
+    //     }
+
+    // Prompt user to continue or exit
+    //     println!("Do you want to continue? (yes/no)");
+    //     let mut input = String::new();
+    //     std::io::stdin()
+    //         .read_line(&mut input)
+    //         .expect("Failed to read line");
+    //     let input = input.trim().to_lowercase();
+    //     // if input != "yes" {
+    //     //     break; // Exit loop if user doesn't want to continue
+    //     // }
+    // }
