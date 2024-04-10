@@ -1,12 +1,8 @@
 static COL_MAP: [char; 8] = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
-// const  FRN_STRING:String = String::from("ffff");
-static FRN_STRING: &'static str = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+static FRN_STRING: &'static str = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
 
+// static FRN_STRING: &'static str = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
 
-
-/**
- * ENUMS
- */
 #[derive(Debug)]
 enum Color {
     White,
@@ -28,24 +24,14 @@ enum GameSquare {
     Occupied(u64),
 }
 
-// enum PieceOrder {
-
-    
-// }
-
-/**
- * STRUCTS
- */
 #[derive(Debug)]
-
 struct Move {
-    CurrentPosition: String,
-    NewPosition: String,
+    current_position: String,
+    new_position: String,
 }
 
 struct GameInfo {
-    piece: Vec<Piece>,
-    square: Vec<GameSquare>,
+    pieces: Vec<Piece>,
 }
 
 #[derive(Debug)]
@@ -64,72 +50,72 @@ impl Piece {
     }
 }
 
-/**
- * UTILITY
- */
-
 fn index_to_position(index: usize) -> Result<String, String> {
     let column = index % 8;
     let row = index / 8 + 1;
-    // if column < 8 && row < 9 {
-    //     Ok(format!("{}{}", COL_MAP[column], row))
-    // } else {
-    //     Err("OUT OF BOUNDS".to_string())
-    // }
+
     match (column, row) {
         (0..=7, 1..=8) => Ok(format!("{}{}", COL_MAP[column], row)),
         _ => Err("OUT OF BOUNDS".to_string()),
     }
 }
 
-fn set_board(board: &Vec<String>) -> Vec<u32> {
+fn split_word(s: &str) -> Vec<String> {
+    let mut result: Vec<String> = Vec::new();
 
-
-
-
-    let a = [1];
-    a.to_vec()
+    for part in s.chars() {
+        result.push(part.to_string());
+    }
+    result
 }
 
-/**
- * MAIN
- */
+fn set_board(board: &[String]) -> Vec<u32> {
+    for part in FRN_STRING.split('/') {
+        if part.chars().all(|c| c.is_digit(10)) {
+            println!("DD");
+        } else {
+            let a = split_word(part);
+            println!("{:?}", a);
+        }
+    }
+    let a = [1];
+    draw_board();
+    a.to_vec()
+
+}
+
+fn draw_board() {
+    for _ in 0..8 {
+        for _ in 0..8 {
+            print!(" _ ");
+        }
+        println!(); 
+    }
+}
+
 fn main() {
     let mut board: Vec<String> = Vec::new();
 
     for i in 0..64 {
-        let position_result = index_to_position(i);
-        match position_result {
-            Ok(position) => board.push(position),
-            Err(err) => println!("{} -> Error: {}", i, err),
+        if let Ok(position) = index_to_position(i) {
+            board.push(position);
+        } else {
+            println!("{} -> Error: OUT OF BOUNDS", i);
         }
     }
+
     set_board(&board);
-    let my_move: Move = Move {
-        CurrentPosition: "a1".to_string(),
-        NewPosition: "a4".to_string(),
+    let my_move = Move {
+        current_position: "a1".to_string(),
+        new_position: "a4".to_string(),
     };
 
-    let a = &my_move.NewPosition;
-    println!("{}", a);
+    let new_position = &my_move.new_position;
+    println!("{}", new_position);
 
-    // if a.iter().any(|&x| x == 3) {
-    if board.contains(a) {
-        println!("VALID {:#?}", my_move)
+    if board.contains(new_position) {
+        println!("VALID {:#?}", my_move);
     } else {
-        println!("NOT VALID {:#?}", my_move)
+        println!("NOT VALID {:#?}", my_move);
     }
-
-    // let position_result = index_to_position(12);
-    // let game_piece1 = match position_result {
-    //     Ok(position) => Piece {
-    //         color: Color::White,
-    //         class: PieceClass::Pawn,
-    //         position: position,
-    //     },
-    //     Err(err) => {
-    //         println!("Error: {}", err);
-    //         return;
-    //     }
-    // };
 }
